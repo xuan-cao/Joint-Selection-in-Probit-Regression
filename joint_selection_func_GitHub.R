@@ -23,7 +23,7 @@ BSSC <- function(Y, X, qn, init.A=NULL, init.gam=NULL, Rj=NULL, a.hp, b.hp, tau2
    # set initial value for Omega and G
    library(glasso)
    Vs = var(X)
-   a = glasso(Vs, rho=.055) #0.055 for ar2
+   a = glasso(Vs, rho=.055)
    aa = glasso(Vs,rho=.1, w.init=a$w, wi.init=a$wi)
    glassoaa = aa$wi
    Omega.mat[,,1] = glassoaa
@@ -58,11 +58,9 @@ BSSC <- function(Y, X, qn, init.A=NULL, init.gam=NULL, Rj=NULL, a.hp, b.hp, tau2
       beta_g = beta[-g]
       X_g = X[, -g]
       invSigmag = t(Xg)%*%Xg + 1/tau2
-      #print(invSigmag)
       Sigmag = 1/invSigmag
 
       mug = Sigmag*t(Xg)%*%(Z - X_g%*%beta_g)
-      #print(mug^2*invSigmag)
       temp = 1 + sqrt(Sigmag/tau2)*exp(0.5*mug^2*invSigmag - a.hp + 2*b.hp*t(gamma)%*%G.mat[,,i-1][,g])
       temp = 1 - 1/temp
       gamma[g] = rbinom(n = 1, size = 1, prob = temp)
@@ -75,8 +73,8 @@ BSSC <- function(Y, X, qn, init.A=NULL, init.gam=NULL, Rj=NULL, a.hp, b.hp, tau2
       }
       
       gamma.mat[i,] = gamma
+   
       
-      print(which(gamma.mat[i,]!=0))
       # Gibbs for G and Omega
       Omega = Omega.mat[,,i-1]
       G = matrix(0,p,p)
