@@ -1,6 +1,5 @@
 
 rm(list=ls())
-# install.packages("lars")
 library(MASS) # for mvrnorm function
 library(glmnet)
 # read source files
@@ -8,7 +7,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # setting the worksp
 
 
 ####################################################
-# 2. Data generation given at Peterson et al. (2016)
+# 2. Data generation
 ####################################################
 
 # (a) first setting
@@ -19,7 +18,7 @@ p = 150
 
 
 ####################################################
-# generation of covariate matrix X: first and second settings 
+# generation of covariate matrix X
 set.seed(12)
 Omega0 = matrix(0, p,p)
 
@@ -38,11 +37,11 @@ diag(G0) = 0
 
 
 
-##################################################
+#####################################################
 # generation of coefficient vector \beta
 beta0 = matrix(0, nrow=p, ncol=1)
 
-##############################################################
+#####################################################
 
 t = 10
 
@@ -68,7 +67,7 @@ Y = ifelse(Y<=0, 0, 1)
 ####################################################
 # hyperparameters
 ####################################################
-a.hp = 2.75 #2.75 tau 2 beta all 3 gamma 6 iter 200 200
+a.hp = 2.75
 b.hp = 0.5
 qn = 0.005
 
@@ -80,8 +79,6 @@ s = 1e-8
 
 
 
-# niter = 10000
-# nburn = .2*niter
 niter = 2000
 nburn = 2000
 nadap = 0
