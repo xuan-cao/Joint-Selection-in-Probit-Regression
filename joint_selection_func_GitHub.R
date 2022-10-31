@@ -2,7 +2,6 @@ library(lars)
 library(truncnorm)
 # Y : n X 1 data 
 # X : n X p covariate matrix
-################################# need to sample beta!!!
 BSSC <- function(Y, X, qn, init.A=NULL, init.gam=NULL, Rj=NULL, a.hp, b.hp, tau2, r, s, niter, nburn){
    
    n = nrow(X)
